@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* *******************************************************************************************
  *                                                                                           *
  * Plese read the following tutorial before implementing tasks:                              *
@@ -110,8 +111,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return new Array(count).fill(value).join('').toString();
 }
 
 /**
@@ -126,8 +127,9 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const i = str.indexOf(value);
+  return str.substring(0, i) + str.substring(i + value.length);
 }
 
 /**
@@ -141,8 +143,11 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(tr) {
+  const result = tr.split('');
+  result.pop();
+  result.shift();
+  return result.join('');
 }
 
 
@@ -156,8 +161,8 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -175,8 +180,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +207,32 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  for (let h = 0; h < height; h++) {
+    if (h === 0) {
+      result = '┌';
+      for (let w = 1; w < width - 1; w++) {
+        result += '─';
+      }
+      result += '┐\n';
+    }
+    if (h === (height - 1)) {
+      result += '└';
+      for (let w = 1; w < width - 1; w++) {
+        result += '─';
+      }
+      result += '┘\n';
+    }
+    if (h !== 0 && h !== (height - 1)) {
+      result += '│';
+      for (let w = 1; w < width - 1; w++) {
+        result += ' ';
+      }
+      result += '│\n';
+    }
+  }
+  return result;
 }
 
 
@@ -223,8 +252,23 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const arr1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const arr2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+  const arrWord = str.split(' ');
+  const result = [];
+  arrWord.forEach((word) => {
+    const arrStr = word.split('');
+    const arrResult = [];
+    arrStr.forEach((element) => {
+      const i = arr1.indexOf(element);
+      if (i === -1) arrResult.push(element);
+      else arrResult.push(arr2[i]);
+    });
+    result.push(arrResult.join(''));
+  });
+
+  return result.join(' ');
 }
 
 /**
@@ -240,8 +284,14 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  let result;
+  if (value === undefined) return false;
+  if (value === null) return false;
+  if (typeof value === 'object') result = value.valueOf();
+  result = value.valueOf(value);
+  if (typeof result === 'string') return true;
+  return false;
 }
 
 
