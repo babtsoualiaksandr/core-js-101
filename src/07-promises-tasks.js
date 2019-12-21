@@ -28,8 +28,15 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(sPositiveAnswer) {
+  return new Promise(((resolve, reject) => {
+    if (sPositiveAnswer === true) resolve('Hooray!!! She said "Yes"!');
+    if (sPositiveAnswer === false) resolve('Oh no, she said "No".');
+    else {
+      const error = new Error('Wrong parameter is passed! Ask her again.');
+      reject(error);
+    }
+  }));
 }
 
 
@@ -48,8 +55,9 @@ function willYouMarryMe(/* isPositiveAnswer */) {
  *    })
  *
  */
-function processAllPromises(/* array */) {
-  throw new Error('Not implemented');
+async function processAllPromises(array) {
+  const res = await Promise.all(array);
+  return res;
 }
 
 /**
@@ -71,8 +79,9 @@ function processAllPromises(/* array */) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
+async function getFastestPromise(array) {
+  const res = await Promise.race(array);
+  return res;
 }
 
 /**
@@ -92,6 +101,7 @@ function getFastestPromise(/* array */) {
  *    });
  *
  */
+
 function chainPromises(/* array, action */) {
   throw new Error('Not implemented');
 }
